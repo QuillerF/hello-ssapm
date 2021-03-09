@@ -1,5 +1,5 @@
-/* * @Author: yuanxiongfeng * @Date: 2021-03-05 11:04:16 * @Last Modified by:
-yuanxiongfeng * @Last Modified time: 2021-03-05 11:05:12 */
+/* * @Author: yuanxiongfeng * @Date: 2021-03-05 11:04:16 * @Last Modified by: yuanxiongfeng * @Last Modified time:
+2021-03-05 11:05:12 */
 
 <template>
   <div class="home">
@@ -18,54 +18,52 @@ yuanxiongfeng * @Last Modified time: 2021-03-05 11:05:12 */
       clearable
       style="width: 500px; margin-top: 20px"
     ></el-input>
-    <el-button type="primary" class="post-btn" @click="toPostRequest">
-      发送请求
-    </el-button>
+    <el-button type="primary" class="post-btn" @click="toPostRequest"> 发送请求 </el-button>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from "vue";
-import API from "@/api/api";
+import { ref, defineComponent } from 'vue'
+import API from '@/api/api'
 
 export default defineComponent({
-  name: "HelloWorld",
+  name: 'HelloWorld',
   setup: () => {
-    const form = ref({ data: "" });
+    const form = ref({ data: '' })
     const headers = ref({
-      Accept: "application/json, text/plain, */*",
-      "Content-Type": "application/json",
-      platform: "pc",
-      sstoken: "4e10d521-47e6-4893-a124-a10abe49d00e",
-    });
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+      platform: 'pc',
+      sstoken: '4e10d521-47e6-4893-a124-a10abe49d00e'
+    })
     const sleep = (time: number) => {
       return new Promise((resolve, reject) => {
-        setTimeout(resolve, time);
-      });
-    };
+        setTimeout(resolve, time)
+      })
+    }
     const toPostRequest = async () => {
-      const list = JSON.parse(form.value.data);
-      console.log(list);
+      const list = JSON.parse(form.value.data)
+      console.log(list)
       for (const el of list) {
-        const { planId, projectId, instanceId, version } = el;
+        const { planId, projectId, instanceId, version } = el
         const params = {
           planId,
           projectId,
           instanceId,
           version,
           headers,
-          status: 1,
-        };
-        await API.PASS_CASE(params, { headers: headers.value });
-        const num = (Math.random() * 3 + 3) * 1000;
-        await sleep(num);
-        console.log("执行一次循环");
+          status: 1
+        }
+        await API.PASS_CASE(params, { headers: headers.value })
+        const num = (Math.random() * 60 + 3) * 1000
+        await sleep(num)
+        console.log('执行一次循环')
       }
-      console.log("执行完毕!");
-    };
-    return { form, headers, toPostRequest };
-  },
-});
+      console.log('执行完毕!')
+    }
+    return { form, headers, toPostRequest }
+  }
+})
 </script>
 
 <style lang="scss" scoped>
